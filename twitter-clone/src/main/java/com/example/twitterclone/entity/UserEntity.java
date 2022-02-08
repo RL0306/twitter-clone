@@ -21,13 +21,13 @@ public class UserEntity {
 
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<RoleEntity> roles;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
-    public UserEntity(String username, String email, String password, List<RoleEntity> roles) {
+    public UserEntity(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.roles = roles;
+        this.role = UserRole.ROLE_USER;
     }
 }
