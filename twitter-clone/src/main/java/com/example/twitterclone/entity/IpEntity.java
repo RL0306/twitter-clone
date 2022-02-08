@@ -22,6 +22,9 @@ public class IpEntity {
     @ManyToOne
     private UserEntity userEntity;
 
+    
+
+
     public IpEntity(String ip, UserEntity userEntity) {
         this.ip = ip;
         this.userEntity = userEntity;

@@ -26,7 +26,7 @@ public class IpService {
 
     private final UserRepository userRepository;
     private final IpRepository ipRepository;
-    private final ObjectMapper mapper;
+    private final EmailSendingService emailSendingService;
 
     public boolean createIP(String ipAddress, String username) throws IOException {
         //get logging in user
@@ -46,7 +46,9 @@ public class IpService {
 
         if(!check){
             log.info("Ip doesn't exist for {} {}", username, ipAddress );
-
+            emailSendingService.sendEmail("lakhr034@gmail.com",
+                    "Confirm your new IP Address",
+                    "You have logged in from a new IP : " + ipAddress + " please confirm if you recognise");
             return false;
         }
 

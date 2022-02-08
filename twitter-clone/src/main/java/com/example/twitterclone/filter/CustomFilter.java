@@ -2,6 +2,7 @@ package com.example.twitterclone.filter;
 
 import com.example.twitterclone.controller.UserController;
 import com.example.twitterclone.dto.LoginRequestDTO;
+import com.example.twitterclone.service.EmailSendingService;
 import com.example.twitterclone.service.IpService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
@@ -29,10 +30,6 @@ public class CustomFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final ObjectMapper mapper;
     private final IpService ipService;
-    private final UserController userController;
-
-
-
 
     @SneakyThrows
     @Override
@@ -44,12 +41,13 @@ public class CustomFilter extends UsernamePasswordAuthenticationFilter {
         return authenticationManager.authenticate(authenticationToken);
     }
 
+    @SneakyThrows
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         boolean check = ipService.createIP(request.getRemoteAddr(), authResult.getName());
         if(!check)return;
         super.successfulAuthentication(request, response, chain, authResult);
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-        userController.auth();
+//        userController.auth();
     }
 }
