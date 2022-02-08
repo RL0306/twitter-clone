@@ -1,6 +1,8 @@
 package com.example.twitterclone.security;
 
+import com.example.twitterclone.controller.UserController;
 import com.example.twitterclone.filter.CustomFilter;
+import com.example.twitterclone.service.IpService;
 import com.example.twitterclone.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final ObjectMapper mapper;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final IpService ipService;
 
 
     @Override
@@ -42,9 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .cors().configurationSource(corsConfigurationSource())
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/register", "/api/login")
@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public CustomFilter customFilter() throws Exception {
-        CustomFilter customFilter = new CustomFilter(authenticationManagerBean(), mapper);
+        CustomFilter customFilter = new CustomFilter(authenticationManagerBean(), mapper, ipService, new UserController());
         customFilter.setFilterProcessesUrl("/api/login");
         customFilter.setAuthenticationManager(authenticationManagerBean());
         customFilter.setAuthenticationSuccessHandler(myAuthenticationSuccessHandler());

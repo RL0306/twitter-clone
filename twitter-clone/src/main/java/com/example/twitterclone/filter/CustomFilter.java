@@ -1,7 +1,12 @@
 package com.example.twitterclone.filter;
 
+import com.example.twitterclone.controller.UserController;
 import com.example.twitterclone.dto.LoginRequestDTO;
+import com.example.twitterclone.service.IpService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,16 +23,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
-
+@RequiredArgsConstructor
 public class CustomFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final ObjectMapper mapper;
+    private final IpService ipService;
+    private final UserController userController;
 
-    public CustomFilter(AuthenticationManager authenticationManager, ObjectMapper mapper){
-        this.authenticationManager = authenticationManager;
-        this.mapper = mapper;
-    }
+
 
 
     @SneakyThrows
@@ -42,8 +46,10 @@ public class CustomFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        System.out.println("success");
+        boolean check = ipService.createIP(request.getRemoteAddr(), authResult.getName());
+        if(!check)return;
         super.successfulAuthentication(request, response, chain, authResult);
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
+        userController.auth();
     }
 }

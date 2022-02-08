@@ -1,5 +1,6 @@
 package com.example.twitterclone.dto;
 
+import com.example.twitterclone.entity.IpEntity;
 import com.example.twitterclone.entity.UserRole;
 import lombok.Data;
 
@@ -14,4 +15,5 @@ public class UserDTO {
     private String email;
     @Enumerated(EnumType.STRING)
     private UserRole role;
+    private List<IpEntity> ipEntityList;
 }
