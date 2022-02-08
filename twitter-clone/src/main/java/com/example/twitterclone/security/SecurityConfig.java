@@ -11,11 +11,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -39,6 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
                 .antMatchers("/api/register", "/api/login")
                 .permitAll()
@@ -57,11 +64,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customFilter.setFilterProcessesUrl("/api/login");
         customFilter.setAuthenticationManager(authenticationManagerBean());
         customFilter.setAuthenticationSuccessHandler(myAuthenticationSuccessHandler());
+        customFilter.setAuthenticationFailureHandler(myAuthenticationFailHandler());
         return customFilter;
     }
 
     private AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
-        return new CustomAuthSuccessHandler();
+        return new CustomAuthSuccessHandler(mapper);
+    }
+
+    private AuthenticationFailureHandler myAuthenticationFailHandler(){
+        return new CustomAuthFailHandler(mapper);
     }
 
     @Override
