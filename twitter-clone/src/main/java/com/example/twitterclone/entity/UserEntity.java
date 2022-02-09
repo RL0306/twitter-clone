@@ -29,7 +29,7 @@ public class UserEntity {
     private UserRole role;
 
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JsonManagedReference
+    @JsonManagedReference
     private List<IpEntity> ipEntityList;
 
     public UserEntity(String username, String email, String password) {
