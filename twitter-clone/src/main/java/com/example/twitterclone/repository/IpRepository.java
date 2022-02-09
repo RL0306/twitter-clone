@@ -9,4 +9,5 @@ import java.util.Optional;
 
 public interface IpRepository extends JpaRepository<IpEntity, Long> {
    List<IpEntity> getIpEntityByUserEntity(UserEntity userEntity);
+   Optional<IpEntity> getIpEntityByToken(String token);
 }

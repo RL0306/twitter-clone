@@ -15,5 +15,5 @@ public class UserDTO {
     private String email;
     @Enumerated(EnumType.STRING)
     private UserRole role;
-    private List<IpEntity> ipEntityList;
+    private List<IpDTO> ipEntityList;
 }

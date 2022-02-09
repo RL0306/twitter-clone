@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/register", "/api/login")
+                .antMatchers("/api/register", "/api/login", "/api/ip")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

@@ -1,16 +1,18 @@
 package com.example.twitterclone.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Data
 @NoArgsConstructor
-//look into constructor shit
 public class IpEntity {
 
     @Id
@@ -19,14 +21,19 @@ public class IpEntity {
 
     private String ip;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private UserEntity userEntity;
 
-    
+    private String token;
+
+    private boolean recognised;
 
 
-    public IpEntity(String ip, UserEntity userEntity) {
+    public IpEntity(String ip, UserEntity userEntity, boolean recognised) {
         this.ip = ip;
         this.userEntity = userEntity;
+        this.token = UUID.randomUUID().toString();
+        this.recognised = recognised;
     }
 }
