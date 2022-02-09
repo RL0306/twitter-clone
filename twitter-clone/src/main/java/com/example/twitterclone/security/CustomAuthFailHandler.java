@@ -1,5 +1,6 @@
 package com.example.twitterclone.security;
 
+import com.example.twitterclone.util.JsonResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.security.core.AuthenticationException;
@@ -12,21 +13,14 @@ import java.io.IOException;
 
 public class CustomAuthFailHandler implements AuthenticationFailureHandler {
 
-    private ObjectMapper mapper;
+    private final JsonResponse jsonResponse;
 
-    public CustomAuthFailHandler(ObjectMapper mapper ){
-        this.mapper = mapper;
+    public CustomAuthFailHandler(JsonResponse jsonResponse){
+        this.jsonResponse = jsonResponse;
     }
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        response.setStatus(401);
-
-        ObjectNode responseNode = mapper.createObjectNode();
-        responseNode.put("Authentication", "Failure");
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(mapper.writeValueAsString(responseNode));
+        jsonResponse.writeResponse(response,"authentication", "Credentials failed", 401);
     }
 }

@@ -4,7 +4,9 @@ import com.example.twitterclone.controller.UserController;
 import com.example.twitterclone.dto.LoginRequestDTO;
 import com.example.twitterclone.service.EmailSendingService;
 import com.example.twitterclone.service.IpService;
+import com.example.twitterclone.util.JsonResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ public class CustomFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final ObjectMapper mapper;
     private final IpService ipService;
+    private final JsonResponse jsonResponse;
 
     @SneakyThrows
     @Override
@@ -45,7 +48,10 @@ public class CustomFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         boolean check = ipService.createIP(request.getRemoteAddr(), authResult.getName());
-        if(!check)return;
+        if(!check){
+            jsonResponse.writeResponse(response, "authentication", "Confirm new IP Adress", 401);
+            return;
+        }
         super.successfulAuthentication(request, response, chain, authResult);
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
 //        userController.auth();

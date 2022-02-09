@@ -5,6 +5,7 @@ import com.example.twitterclone.filter.CustomFilter;
 import com.example.twitterclone.service.EmailSendingService;
 import com.example.twitterclone.service.IpService;
 import com.example.twitterclone.service.UserService;
+import com.example.twitterclone.util.JsonResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -40,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final IpService ipService;
+    private final JsonResponse jsonResponse;
 
 
     @Override
@@ -62,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public CustomFilter customFilter() throws Exception {
-        CustomFilter customFilter = new CustomFilter(authenticationManagerBean(), mapper, ipService);
+        CustomFilter customFilter = new CustomFilter(authenticationManagerBean(), mapper, ipService, jsonResponse);
         customFilter.setFilterProcessesUrl("/api/login");
         customFilter.setAuthenticationManager(authenticationManagerBean());
         customFilter.setAuthenticationSuccessHandler(myAuthenticationSuccessHandler());
@@ -71,11 +73,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
-        return new CustomAuthSuccessHandler(mapper);
+        return new CustomAuthSuccessHandler(jsonResponse);
     }
 
     private AuthenticationFailureHandler myAuthenticationFailHandler(){
-        return new CustomAuthFailHandler(mapper);
+        return new CustomAuthFailHandler(jsonResponse);
     }
 
     @Override

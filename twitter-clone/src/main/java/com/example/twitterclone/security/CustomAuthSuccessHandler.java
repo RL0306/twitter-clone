@@ -1,5 +1,6 @@
 package com.example.twitterclone.security;
 
+import com.example.twitterclone.util.JsonResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
@@ -16,22 +17,15 @@ import java.util.Map;
 
 public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 
-    private ObjectMapper mapper;
+    private final JsonResponse jsonResponse;
 
-    public CustomAuthSuccessHandler(ObjectMapper mapper ){
-        this.mapper = mapper;
+    public CustomAuthSuccessHandler(JsonResponse jsonResponse ){
+        this.jsonResponse = jsonResponse;
     }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        response.setStatus(200);
-
-        ObjectNode responseNode = mapper.createObjectNode();
-        responseNode.put("Authentication", "Success");
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(mapper.writeValueAsString(responseNode));
+        jsonResponse.writeResponse(response, "authentication", "Success", 200);
     }
 
 
