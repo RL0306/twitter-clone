@@ -22,7 +22,8 @@ public class TwitterCloneApplication {
 	@Bean
 	public ObjectMapper mapper(){
 		return new ObjectMapper()
-				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+				.registerModule(new JavaTimeModule());
 	}
 
 
