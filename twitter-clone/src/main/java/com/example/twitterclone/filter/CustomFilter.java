@@ -49,7 +49,7 @@ public class CustomFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         boolean check = ipService.createIP(request.getRemoteAddr(), authResult.getName());
         if(!check){
-            jsonResponse.writeResponse(response, "authentication", "Confirm new IP Adress", 401);
+            jsonResponse.writeResponse(response, "authentication", "Confirm new IP Address", 401);
             return;
         }
         super.successfulAuthentication(request, response, chain, authResult);

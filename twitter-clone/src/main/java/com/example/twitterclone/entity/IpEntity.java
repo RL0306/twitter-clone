@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -29,11 +30,14 @@ public class IpEntity {
 
     private boolean recognised;
 
+    private LocalDateTime issued;
+
 
     public IpEntity(String ip, UserEntity userEntity, boolean recognised) {
         this.ip = ip;
         this.userEntity = userEntity;
         this.token = UUID.randomUUID().toString();
         this.recognised = recognised;
+        this.issued = LocalDateTime.now();
     }
 }
