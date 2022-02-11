@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,10 +30,6 @@ public class TweetService {
         TweetEntity tweetEntity = new TweetEntity(tweetRequestDTO.getDescription(), currentUser);
 
         tweetRepository.save(tweetEntity);
-        //so fucking sketchy
-        //did this because initial parentTweet value is null
-        tweetEntity.setParentTweet(tweetEntity.getId());
-        tweetRepository.save(tweetEntity);
 
         return mapper.convertValue(tweetEntity, TweetDTO.class);
     }
@@ -44,17 +41,32 @@ public class TweetService {
         //get tweet they are commenting on
         TweetEntity currentTweet = tweetRepository.findById(id).orElseThrow(IllegalStateException::new);
 
-        TweetEntity tweetEntity = new TweetEntity(tweetRequestDTO.getDescription(), currentUser, currentTweet.getParentTweet(), currentTweet);
+        //make new tweet
+        TweetEntity tweetEntity = new TweetEntity(tweetRequestDTO.getDescription(), currentTweet,currentUser);
+
+        //update parents child
+        currentTweet.getComments().add(tweetEntity);
+
         tweetRepository.save(tweetEntity);
 
         return mapper.convertValue(tweetEntity, TweetDTO.class);
 
     }
 
-    public List<TweetEntity> getTweet(Long id) {
-//        TweetEntity currentTweet = tweetRepository.findById(id).orElseThrow(IllegalStateException::new);
-//        return mapper.convertValue(currentTweet, TweetDTO.class);
-        List<TweetEntity> tweetEntityList = tweetRepository.getAllByParentTweet(id);
-        return tweetEntityList;
+    public TweetDTO getTweet(Long id) {
+        TweetEntity tweetEntity = tweetRepository.findById(id).orElseThrow(IllegalStateException::new);
+        return mapper.convertValue(tweetEntity, TweetDTO.class);
+    }
+
+    public List<TweetEntity> getTweetComments(Long id) {
+        TweetEntity tweetEntity = tweetRepository.findById(id).orElseThrow(IllegalStateException::new);
+        List<TweetEntity> comments = tweetEntity.getComments();
+        return comments;
+    }
+
+    public List<TweetDTO> getAllTweets() {
+        List<TweetEntity> allTweets = tweetRepository.findAll();
+
+        return mapper.convertValue(allTweets, new TypeReference<List<TweetDTO>>() {});
     }
 }

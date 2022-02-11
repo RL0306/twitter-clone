@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TweetRepository extends JpaRepository<TweetEntity, Long> {
-    List<TweetEntity> getAllByParentTweet(Long id);
+//    List<TweetEntity> getAllByParentTweet(Long id);
 }

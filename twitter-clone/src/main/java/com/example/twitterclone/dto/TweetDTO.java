@@ -12,6 +12,4 @@ public class TweetDTO {
     private int retweets;
     private int favourites;
     private LocalDateTime time;
-    private List<TweetDTO> tweetComments;
-    private Long parentTweet;
 }

@@ -1,6 +1,8 @@
 package com.example.twitterclone.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,45 +23,38 @@ public class TweetEntity {
     private int favourites;
     private LocalDateTime time;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "id")
+    @JsonManagedReference
+    private TweetEntity parent;
+
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<TweetEntity> comments;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private UserEntity userEntity;
 
-    @OneToMany(fetch = FetchType.LAZY)
-
-    private List<TweetEntity> tweetComments;
-
-    //references tweet, ie for comments, should refrence the main tweet it's commenting on
-    private Long parentTweet;
-
-    //reference the tweet it's tweeting to, this is so that we know what comment it is referring to and also access the parent of the tweet
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private TweetEntity tweetTo;
-
-    //for actual new tweet
-    public TweetEntity(String description, UserEntity userEntity) {
+    public TweetEntity(String description, UserEntity userEntity){
         this.description = description;
         this.retweets = 0;
         this.favourites = 0;
         this.time = LocalDateTime.now();
         this.userEntity = userEntity;
-        this.tweetComments = new ArrayList<>();
-        //if 0 user made parent tweet
-        this.parentTweet = 0L;
     }
 
-    //For comments
-    public TweetEntity(String description, UserEntity userEntity, Long parentTweet, TweetEntity tweetTo) {
+    public TweetEntity(String description, TweetEntity parent, UserEntity userEntity){
         this.description = description;
         this.retweets = 0;
         this.favourites = 0;
         this.time = LocalDateTime.now();
+        this.parent = parent;
         this.userEntity = userEntity;
-        this.tweetComments = new ArrayList<>();
-        this.parentTweet = parentTweet;
-        this.tweetTo = tweetTo;
     }
+
 
 
 }
+
+
+

@@ -42,22 +42,15 @@ public class IpService {
             return true;
         }
 
-        //check if ip exists for user and the status is true (true means they can log in)
-        boolean check = ipList.stream().anyMatch(ipEntity -> ipEntity.getIp().equals(ipAddress) && ipEntity.isRecognised());
-
-        if(!check){
-            log.info("Ip doesn't exist for {} {}", username, ipAddress );
-            //create new ip entity with false status
-            IpEntity ipEntity = new IpEntity(ipAddress, userEntity, false);
-            ipRepository.save(ipEntity);
-
-            emailSendingService.sendEmail("lakhr034@gmail.com",
-                    "Confirm your new IP Address",
-                    "You have logged in from a new IP : " + ipAddress + " please confirm if you recognise, token is " + ipEntity.getToken() );
-            return false;
+        //feel like it's so messy
+        Optional<IpEntity> ipEntityByIp = ipRepository.getIpEntityByIp(ipAddress);
+        if(ipEntityByIp.isPresent()){
+            return ipEntityByIp.get().isRecognised();
+        } else{
+            ipRepository.save(new IpEntity(ipAddress, userEntity, false));
         }
 
-        return true;
+        return false;
     }
 
     //potential problems 1. time limit on token might be needed
