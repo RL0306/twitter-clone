@@ -16,7 +16,7 @@ public class UserDTO {
     @Enumerated(EnumType.STRING)
     private UserRole role;
     private List<IpDTO> ipEntityList;
-//    private List<FollowerDTO> followerEntityList;
+    private List<FollowerDTO> followerEntityList;
     private List<FollowerDTO> followingEntityList;
 
 }

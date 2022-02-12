@@ -37,10 +37,10 @@ public class UserEntity {
     @OneToMany(mappedBy = "from", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "user_following")
     private List<FollowerEntity> followingEntityList;
-//
-//    @OneToMany(mappedBy = "to", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JsonManagedReference
-//    private List<FollowerEntity> followerEntityList;
+
+    @OneToMany(mappedBy = "to", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "user_follower")
+    private List<FollowerEntity> followerEntityList;
 
     public UserEntity(String username, String email, String password) {
         this.username = username;
@@ -48,8 +48,8 @@ public class UserEntity {
         this.password = password;
         this.role = UserRole.ROLE_USER;
         this.ipEntityList = new ArrayList<>();
-//        this.followingEntityList = new ArrayList<>();
-//        this.followerEntityList = new ArrayList<>();
+        this.followingEntityList = new ArrayList<>();
+        this.followerEntityList = new ArrayList<>();
     }
 
     @Override

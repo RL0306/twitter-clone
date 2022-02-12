@@ -10,6 +10,7 @@ public class FollowerDTO {
 
     @JsonBackReference(value = "user_following")
     private UserDTO from;
-//    @JsonBackReference
-//    private UserDTO to;
+
+    @JsonBackReference(value = "user_follower")
+    private UserDTO to;
 }

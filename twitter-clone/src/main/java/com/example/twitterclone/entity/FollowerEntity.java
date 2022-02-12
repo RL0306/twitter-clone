@@ -20,12 +20,12 @@ public class FollowerEntity {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserEntity from;
 
-//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JsonBackReference
-//    private UserEntity to;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference(value = "user_follower")
+    private UserEntity to;
 
     public FollowerEntity(UserEntity from, UserEntity to) {
         this.from = from;
-//        this.to = to;
+        this.to = to;
     }
 }
