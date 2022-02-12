@@ -29,8 +29,8 @@ const Login = () => {
     
   }
   return (
-    <main className="info-container center">
-    <form className="info-form-container column" onSubmit={(e) => handleLogin(e)}>
+    <main className="info-container info-center">
+    <form className="info-form-container info-column" onSubmit={(e) => handleLogin(e)}>
       <h1 className="info-text-center">Login Form</h1>
       <input className="info-input-info" type="text" name="username"placeholder="username"required></input>
       <input className="info-input-info" type="password"name="password"placeholder="password"required></input>

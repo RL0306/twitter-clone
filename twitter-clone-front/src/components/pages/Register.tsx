@@ -31,14 +31,14 @@ const Register = () => {
   }
   
   return (
-    <main className="main-container center">
-    <form className="form-container column" onSubmit={(e) => handleRegistration(e)}>
-      <h1 className="form-title">Register Form</h1>
-      <input className="input-info" type="text" name="username"placeholder="username"required></input>
-      <input className="input-info" type="text"name="email"placeholder="email"required></input>
-      <input className="input-info" type="password"name="password"placeholder="password"required></input>
-      <button className="input-info" type="submit">Log In</button>
-      <p className="text-center response-info">{response}</p>
+    <main className="info-container info-center">
+    <form className="info-form-container info-column" onSubmit={(e) => handleRegistration(e)}>
+      <h1 className="info-form-title">Register Form</h1>
+      <input className="info-input-info" type="text" name="username"placeholder="username"required></input>
+      <input className="info-input-info" type="text"name="email"placeholder="email"required></input>
+      <input className="info-input-info" type="password"name="password"placeholder="password"required></input>
+      <button className="info-input-info" type="submit">Log In</button>
+      <p className="info-text-center info-response-info">{response}</p>
     </form>
   </main>
   );

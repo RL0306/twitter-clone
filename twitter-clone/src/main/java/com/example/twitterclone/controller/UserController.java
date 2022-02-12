@@ -2,6 +2,7 @@ package com.example.twitterclone.controller;
 
 
 import com.example.twitterclone.dto.UserDTO;
+import com.example.twitterclone.entity.UserEntity;
 import com.example.twitterclone.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,4 +27,7 @@ public class UserController {
         UserDTO user = userService.getUser(id);
         return ResponseEntity.ok(user);
     }
+
+    //follow user
+
 }

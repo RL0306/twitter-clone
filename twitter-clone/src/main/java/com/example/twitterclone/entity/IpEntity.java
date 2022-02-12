@@ -23,7 +23,7 @@ public class IpEntity {
     private String ip;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value = "user_ip")
     private UserEntity userEntity;
 
     private String token;

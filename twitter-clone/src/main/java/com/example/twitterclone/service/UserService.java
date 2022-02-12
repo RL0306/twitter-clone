@@ -41,6 +41,11 @@ public class UserService implements UserDetailsService {
     public UserDTO getUser(Long id){
         UserEntity userEntity = userRepository.findById(id).orElseThrow(IllegalStateException::new);
         return mapper.convertValue(userEntity, UserDTO.class);
+
+//        return userEntity;
+
+
     }
+
 
 }

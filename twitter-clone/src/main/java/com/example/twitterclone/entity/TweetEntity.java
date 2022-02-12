@@ -14,6 +14,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TweetEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
