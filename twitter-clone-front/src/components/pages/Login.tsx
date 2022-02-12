@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react"
-import { ILogin } from "../interface/ILogin";
-import "./Form.css"
+import { ILogin } from "../../interface/ILogin";
+import "../helper/Form.css"
 
 const Login = () => {
 

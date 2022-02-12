@@ -1,4 +1,4 @@
-import "./Home.css"
+import "./HomeHeader.css"
 const HomeHeader = () => {
   return (
   <section className="home-header">

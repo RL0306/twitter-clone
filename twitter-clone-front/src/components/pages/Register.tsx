@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react"
-import { IRegister } from "../interface/IRegister";
-import "./Form.css"
+import { IRegister } from "../../interface/IRegister";
+import "../helper/Form.css"
 
 const Register = () => {
 

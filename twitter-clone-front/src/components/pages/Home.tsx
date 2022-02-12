@@ -1,6 +1,6 @@
-import Sidebar from "./Sidebar";
-import "./Home.css"
-import HomeHeader from "./HomeHeader";
+import Sidebar from "../Sidebar";
+import "../HomeHeader.css"
+import HomeHeader from "../HomeHeader";
 
 const Home = () => {
   return (
