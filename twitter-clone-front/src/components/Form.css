@@ -26,27 +26,27 @@
     width: 60%;
 }
 
-.center {
+.info-center {
     align-items: center;
     justify-content: center;
 }
 
-.column {
+.info-column {
     flex-direction: column;
 }
 
-.input-info {
+.info-input-info {
     padding: 5px;
     border: solid 1px silver;
     border-radius: 10px;
     height: 30px;
 }
 
-.text-center {
+.info-text-center {
     text-align: center;
 }
 
-.response-info {
+.info-response-info {
     font-size: 12px;
     color: red;
 }

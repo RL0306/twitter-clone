@@ -1,14 +1,12 @@
 import Sidebar from "./Sidebar";
 import "./Home.css"
+import HomeHeader from "./HomeHeader";
 
 const Home = () => {
   return (
-    <div className="main-container">
+    <div className="home-main-container">
       <Sidebar/>
-      
-      <div className="home-container">
-        <h1>Hello</h1>
-      </div>
+      <HomeHeader/>
 
     </div>
   )

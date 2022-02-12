@@ -1,73 +1,22 @@
 import "./Sidebar.css"
-import TwitterLogo from "./iconComponent/TwitterLogo";
-import TwitterHome from "./iconComponent/TwitterHome";
+import TwitterLogo from "./iconComponent/TwitterLogo"; 
+import NavButton from "./helper/NavButton";
 
 const Sidebar = () => {
   return (
-    <div className="sidebar-main-container">
+    <div className="sidebar-main-container sidebar-padding">
       <TwitterLogo/>
 
-      <nav className="sidebar-navigation column">
-        <div className="sidebar-item">
-          <TwitterHome/>
-          <h3 className="sidebar-label">
-            <a href="*">Home</a>
-          </h3>
-        </div>
-
-        <div className="sidebar-item">
-          <TwitterHome/>
-          <h3 className="sidebar-label">
-            <a href="*">Explore</a>
-          </h3>
-        </div>
-
-        <div className="sidebar-item">
-          <TwitterHome/>
-          <h3 className="sidebar-label">
-            <a href="*">Notifications</a>
-          </h3>
-        </div>
-
-        <div className="sidebar-item">
-          <TwitterHome/>
-          <h3 className="sidebar-label">
-            <a href="*">Messages</a>
-          </h3>
-        </div>
-
-        <div className="sidebar-item">
-          <TwitterHome/>
-          <h3 className="sidebar-label">
-            <a href="*">Bookmarks</a>
-          </h3>
-        </div>
-
-        <div className="sidebar-item">
-          <TwitterHome/>
-          <h3 className="sidebar-label">
-            <a href="*">Lists</a>
-          </h3>
-        </div>
-
-        <div className="sidebar-item">
-          <TwitterHome/>
-          <h3 className="sidebar-label">
-            <a href="*">Profiles</a>
-          </h3>
-        </div>
-
-        <div className="sidebar-item">
-          <TwitterHome/>
-          <h3 className="sidebar-label">
-            <a href="*">More</a>
-          </h3>
-        </div>
-
-        {/* //why tf does this make label 100% width but if u do a first a isn't */}
-        <label className="sidebar-tweet center">
-          <a href="*">Tweet</a>
-        </label>
+      <nav className="sidebar-navigation sidebar-column">
+        <NavButton to="/" text="Home" image={<TwitterLogo/>}/>
+        <NavButton to="/" text="Explore" image={<TwitterLogo/>}/>
+        <NavButton to="/" text="Notifications" image={<TwitterLogo/>}/>
+        <NavButton to="/" text="Messages" image={<TwitterLogo/>}/>
+        <NavButton to="/" text="Bookmarks" image={<TwitterLogo/>}/>
+        <NavButton to="/" text="Lists" image={<TwitterLogo/>}/>
+        <NavButton to="/" text="Profile" image={<TwitterLogo/>}/>
+        <NavButton to="/" text="More" image={<TwitterLogo/>}/>
+        <a className="sidebar-tweet sidebar-padding" href="/">Tweet</a>
       </nav>
     </div>
   )

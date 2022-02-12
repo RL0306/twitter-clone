@@ -31,11 +31,11 @@ const Login = () => {
   return (
     <main className="info-container center">
     <form className="info-form-container column" onSubmit={(e) => handleLogin(e)}>
-      <h1 className="text-center">Login Form</h1>
-      <input className="input-info" type="text" name="username"placeholder="username"required></input>
-      <input className="input-info" type="password"name="password"placeholder="password"required></input>
-      <button className="input-info" type="submit">Log In</button>
-      <p className="text-center response-info">{response}</p>
+      <h1 className="info-text-center">Login Form</h1>
+      <input className="info-input-info" type="text" name="username"placeholder="username"required></input>
+      <input className="info-input-info" type="password"name="password"placeholder="password"required></input>
+      <button className="info-input-info" type="submit">Log In</button>
+      <p className="info-text-center info-response-info">{response}</p>
     </form>
   </main>
   );
