@@ -1,0 +1,29 @@
+.tweet-card {
+    width: 100%;
+    height: 1%;
+    border: solid 1px gainsboro;
+}
+
+.tweet-column {
+    flex-direction: column;
+}
+
+.tweet-padding {
+    padding: 1rem;
+}
+
+.tweet-flex {
+    display: flex;
+}
+
+.tweet-logos {
+    width: 80%;
+}
+
+.tweet-margin {
+    margin-top: 1rem;
+}
+
+.tweet-position {
+    justify-content: space-between;
+}

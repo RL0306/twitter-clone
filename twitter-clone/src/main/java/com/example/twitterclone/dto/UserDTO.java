@@ -11,12 +11,8 @@ import java.util.List;
 @Data
 public class UserDTO {
     private String username;
-    private String password;
-    private String email;
     @Enumerated(EnumType.STRING)
     private UserRole role;
-    private List<IpDTO> ipEntityList;
-    private List<FollowerDTO> followerEntityList;
-    private List<FollowerDTO> followingEntityList;
 
+    private List<FollowerDTO> following;
 }

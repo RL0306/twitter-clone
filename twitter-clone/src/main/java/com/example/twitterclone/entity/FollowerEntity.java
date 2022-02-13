@@ -9,23 +9,22 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@NoArgsConstructor
 public class FollowerEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
     private Long id;
 
-    @JsonBackReference(value = "user_following")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private UserEntity from;
+    private UserEntity following;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference(value = "user_follower")
-    private UserEntity to;
+    private UserEntity follower;
 
-    public FollowerEntity(UserEntity from, UserEntity to) {
-        this.from = from;
-        this.to = to;
+
+    public FollowerEntity(UserEntity following, UserEntity follower) {
+        this.following = following;
+        this.follower = follower;
     }
 }
