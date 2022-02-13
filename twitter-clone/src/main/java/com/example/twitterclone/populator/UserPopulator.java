@@ -2,6 +2,7 @@ package com.example.twitterclone.populator;
 
 import com.example.twitterclone.dto.FollowerDTO;
 import com.example.twitterclone.dto.IpDTO;
+import com.example.twitterclone.dto.TweetDTO;
 import com.example.twitterclone.dto.UserDTO;
 import com.example.twitterclone.entity.FollowerEntity;
 import com.example.twitterclone.entity.UserEntity;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserPopulator {
 
+    private final TweetPopulator tweetPopulator;
 
     public UserDTO populate(UserEntity userEntity){
         final UserDTO userDTO = new UserDTO();
@@ -27,8 +29,11 @@ public class UserPopulator {
 
         List<UserDTO> userFollowerDTO = getFollowerList(userEntity);
         List<UserDTO> userFollowingDTO = getFollowingList(userEntity);
+        List<TweetDTO> userTweetDTO = tweetPopulator.createTweetListDTO(userEntity);
 
-        userDTO.setFollowing(userFollowerDTO);
+        userDTO.setFollowing(userFollowingDTO);
+        userDTO.setFollower(userFollowerDTO);
+        userDTO.setTweets(userTweetDTO);
 
         return userDTO;
     }

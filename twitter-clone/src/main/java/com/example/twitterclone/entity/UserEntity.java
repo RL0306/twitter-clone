@@ -40,6 +40,9 @@ public class UserEntity {
     @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FollowerEntity> follower;
 
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<TweetEntity> tweets;
+
 
 
     public UserEntity(String username, String email, String password) {
