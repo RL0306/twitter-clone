@@ -13,6 +13,6 @@ public class UserDTO {
     private String username;
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
+    private List<IpDTO> ipDTO;
     private List<FollowerDTO> following;
 }

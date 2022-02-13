@@ -2,6 +2,7 @@ package com.example.twitterclone.service;
 
 import com.example.twitterclone.dto.UserDTO;
 import com.example.twitterclone.entity.UserEntity;
+import com.example.twitterclone.populator.UserPopulator;
 import com.example.twitterclone.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final ObjectMapper mapper;
+    private final UserPopulator userPopulator;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -39,8 +40,9 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDTO getUser(Long id){
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(IllegalStateException::new);
-        return mapper.convertValue(userEntity, UserDTO.class);
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(IllegalAccessError::new);
+
+        return userPopulator.populate(userEntity);
     }
 
 
