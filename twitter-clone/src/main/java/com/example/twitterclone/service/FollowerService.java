@@ -3,6 +3,7 @@ package com.example.twitterclone.service;
 import com.example.twitterclone.dto.UserDTO;
 import com.example.twitterclone.entity.FollowerEntity;
 import com.example.twitterclone.entity.UserEntity;
+import com.example.twitterclone.populator.UserPopulator;
 import com.example.twitterclone.repository.FollowerRepository;
 import com.example.twitterclone.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class FollowerService {
     private final FollowerRepository followerRepository;
     private final UserRepository userRepository;
-    private final ObjectMapper mapper;
+    private final UserPopulator userPopulator;
 
     public UserDTO createFollower(Long id){
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -28,7 +29,7 @@ public class FollowerService {
 
         followerRepository.save(followerEntity);
 
-        return mapper.convertValue(currentUser, UserDTO.class);
+        return userPopulator.populate(currentUser);
 
     }
 }

@@ -1,5 +1,6 @@
 package com.example.twitterclone.controller;
 
+import com.example.twitterclone.dto.IpDTO;
 import com.example.twitterclone.entity.IpEntity;
 import com.example.twitterclone.service.IpService;
 import lombok.AllArgsConstructor;
@@ -16,9 +17,8 @@ public class IpController {
     private final IpService ipService;
 
     @PatchMapping
-    public ResponseEntity<IpEntity> authoriseIP(@RequestParam String token){
-        log.info("called");
-        IpEntity ipEntity = ipService.validateToken(token);
-        return ResponseEntity.ok(ipEntity);
+    public ResponseEntity<IpDTO> authoriseIP(@RequestParam String token){
+        IpDTO ipDTO = ipService.validateToken(token);
+        return ResponseEntity.ok(ipDTO);
     }
 }

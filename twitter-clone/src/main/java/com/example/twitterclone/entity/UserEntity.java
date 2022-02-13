@@ -34,8 +34,11 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<IpEntity> ipEntityList;
 
-//    @OneToMany(mappedBy = "following")
-//    private List<FollowerEntity> following;
+    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<FollowerEntity> following;
+
+    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<FollowerEntity> follower;
 
 
 
@@ -45,6 +48,7 @@ public class UserEntity {
         this.password = password;
         this.role = UserRole.ROLE_USER;
         this.ipEntityList = new ArrayList<>();
+        this.following = new ArrayList<>();
     }
 
     @Override

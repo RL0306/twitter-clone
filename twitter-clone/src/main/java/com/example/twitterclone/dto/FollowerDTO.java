@@ -2,15 +2,15 @@ package com.example.twitterclone.dto;
 
 import com.example.twitterclone.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@AllArgsConstructor
 public class FollowerDTO {
-    private Long id;
-
-    @JsonBackReference(value = "user_following")
     private UserDTO from;
-
-    @JsonBackReference(value = "user_follower")
     private UserDTO to;
+
+
 }
