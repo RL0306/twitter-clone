@@ -46,4 +46,9 @@ public class UserService implements UserDetailsService {
     }
 
 
+    public UserDTO getUserByUsername(String username) {
+        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(IllegalAccessError::new);
+
+        return userPopulator.populate(userEntity);
+    }
 }

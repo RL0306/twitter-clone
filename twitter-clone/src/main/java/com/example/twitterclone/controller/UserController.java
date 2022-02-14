@@ -27,6 +27,13 @@ public class UserController {
         UserDTO user = userService.getUser(id);
         return ResponseEntity.ok(user);
     }
+    //need to get this mapping checked
+    @GetMapping("/username/{username}")
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable("username") String username){
+        UserDTO user = userService.getUserByUsername(username);
+
+        return ResponseEntity.ok(user);
+    }
 
     //follow user
 

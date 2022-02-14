@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import { ILogin } from "../../interface/ILogin";
+
 import "../helper/Form.css"
 
 
@@ -9,24 +10,33 @@ const Login = () => {
   const navigate = useNavigate();
   const [response, setResponse] = useState(undefined);
 
+
+  
+
   const handleLogin= async (e : React.BaseSyntheticEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const loginRequest : ILogin = {username : formData.get("username"), password : formData.get("password")} as ILogin;
 
   try{
-    const response = await axios.post("http://localhost:8080/api/login", JSON.stringify(loginRequest), {
+    const response = await axios.post("http://localhost:8080/api/login", JSON.stringify(loginRequest),  {
       headers : {
-        "content-type" : "application/json"
+        "content-type" : "application/json",
       },
+
       withCredentials : true
     })
 
     const {authentication} = await response.data;
     setResponse(authentication);
+    console.log({authentication})
+  
+    
+
+
     //redirect user to home page
     setTimeout(() => {
-      navigate("/")
+      navigate("/", {state : {username : formData.get("username")}})
     }, 5000)
 
   } catch(error){

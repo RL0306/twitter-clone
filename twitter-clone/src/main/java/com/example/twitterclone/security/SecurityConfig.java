@@ -75,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
-        return new CustomAuthSuccessHandler(jsonResponse);
+        return new CustomAuthSuccessHandler(jsonResponse, userService, mapper);
     }
 
     private AuthenticationFailureHandler myAuthenticationFailHandler(){

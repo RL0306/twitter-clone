@@ -1,18 +1,33 @@
 import Sidebar from "../Sidebar";
 import "../HomeHeader.css"
 import "../Home.css"
+import axios from "axios";
+import {useLocation} from 'react-router-dom';
+import { useEffect, useContext } from "react";
+import { UserContext } from "../context/UserContext";
 import HomeHeader from "../HomeHeader";
 import Tweet from "../Tweet";
-import axios from "axios";
 
 
 const Home = () => {
+  
+  const userContext = useContext(UserContext);
 
-(async () => {
-  const res = await axios.get("http://localhost:8080/api/user/3", {withCredentials: true});
-  const data = await res.data;
-  console.log(data)
-})()
+  const {state} : any = useLocation();
+  const username = state.username;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("fetching")
+      const res =  await axios.get(`http://localhost:8080/api/user/username/${username}`, {withCredentials : true});
+      userContext?.setUser(await res.data);
+    }
+    fetchData();
+
+  },[])
+
+
+
 
 //get user from jsession id
 

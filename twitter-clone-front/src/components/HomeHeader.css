@@ -23,12 +23,18 @@
     display: flex;
 }
 
-.home-center {
+
+/* .home-center {
     align-items: center;
-}
+} */
 
 .home-margin-left {
     margin-left: 1rem;
+}
+
+.home-first {
+    height: 50px;
+    width: 50px;
 }
 
 
@@ -59,11 +65,13 @@
     margin: 0.5rem;
 }
 
-.home-bottom>a {
+.home-btn {
     margin-left: auto;
-    padding: 0.5rem;
+    padding: 1.2rem;
+    border: 0px;
     border-radius: 10px;
     background-color: lightblue;
-    width: 8%;
+    width: 9%;
     text-align: center;
+    margin-top: 0.4rem;
 }

@@ -22,10 +22,9 @@ public class UserPopulator {
     public UserDTO populate(UserEntity userEntity){
         final UserDTO userDTO = new UserDTO();
 
+        userDTO.setId(userEntity.getId());
         userDTO.setUsername(userEntity.getUsername());
 
-        //FUCKING LOSING MY MIND, SHOULD IT NOT BE FOLLOWER DTO
-        //UNDER MINDSET EVERY ENTITY SHOULD HAVE IT'S OWN DTO
 
         List<UserDTO> userFollowerDTO = getFollowerList(userEntity);
         List<UserDTO> userFollowingDTO = getFollowingList(userEntity);
