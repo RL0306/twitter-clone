@@ -1,56 +1,33 @@
 package com.example.twitterclone.dto;
 
 import com.example.twitterclone.entity.UserEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * When we return userDTO it returns a list of TweetDTO is this really needed?
- * Can we not just write a query when we need them or should they be included
- * How do you judge?
- *
- * {
- *     "username": "Test123",
- *     "following": [
- *         {
- *             "username": "Test123"
- *         }
- *     ],
- *     "follower": [
- *         {
- *             "username": "Testing123"
- *         }
- *     ],
- *     "tweets": [
- *         {
- *             "description": "first",
- *             "retweets": 0,
- *             "favourites": 0
- *         },
- *         {
- *             "description": "second",
- *             "retweets": 0,
- *             "favourites": 0
- *         }
- *     ]
- * }
- *
- * json is that so no need to store user entity right because that's what the object is displaying?
- *
- *
- *
- *
+import java.time.LocalDateTime;
 
- */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TweetDTO {
     private String description;
     private int retweets;
     private int favourites;
+    private String username;
+    private LocalDateTime sentAt;
+
+    public TweetDTO(String description, int retweets, int favourites, LocalDateTime sentAt) {
+        this.description = description;
+        this.retweets = retweets;
+        this.favourites = favourites;
+        this.sentAt = sentAt;
+    }
+
+
 }
 
 /**

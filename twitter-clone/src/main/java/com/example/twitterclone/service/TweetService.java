@@ -25,6 +25,7 @@ public class TweetService {
     private final TweetRepository tweetRepository;
     private final UserRepository userRepository;
     private final TweetPopulator tweetPopulator;
+    private final FollowerService followerService;
 
     public TweetDTO createTweet(TweetRequestDTO tweetRequest){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -37,4 +38,11 @@ public class TweetService {
         return tweetPopulator.createTweetToDTO(tweetEntity);
     }
 
+    public List<TweetDTO> getAllTweets() {
+        List<Long> listOfFollowingId = followerService.getListOfFollowingId();
+        List<TweetEntity> tweetList = tweetRepository.getTweetList(listOfFollowingId);
+        List<TweetDTO> followerTweetListDTO = tweetPopulator.createFollowerTweetListDTO(tweetList);
+
+        return followerTweetListDTO;
+    }
 }

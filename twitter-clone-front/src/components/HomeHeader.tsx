@@ -1,22 +1,30 @@
 import axios from "axios"
 import React, { ReactComponentElement, ReactFragment } from "react"
+import { ITweet } from "../interface/ITweet"
 import "./HomeHeader.css"
 import Tweet from "./Tweet"
 const HomeHeader = ({tweets} : {tweets:ReactFragment}) => {
 
-  // const createTweet = async (e : React.BaseSyntheticEvent) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.target);
+  const createTweet = async (e : React.BaseSyntheticEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const description : ITweet = {description : formData.get("description") as string}
 
-  //   const description = formData.get("description");
+    console.log(description)
 
-  //   const res = await axios.post("http://localhost:8080/api/tweet", JSON.stringify(description), {withCredentials:true} )
+    const res = await axios.post("http://localhost:8080/api/tweet", JSON.stringify(description), {
+      withCredentials : true,
+      headers : {
+        "content-type" : "application/json",
+      }
+      
+    });
 
-  //   const data = await res.data;
+    const data = await res.data;
 
-  //   console.log(data)
+    console.log(data)
 
-  // }
+  }
 
 
 
@@ -30,8 +38,8 @@ const HomeHeader = ({tweets} : {tweets:ReactFragment}) => {
     <div className="home-flex home-margin-top home-width home-center">
       <img className="home-first" alt="go away error" src="https://via.placeholder.com/50x50"></img>
       <div className="home-width">
-        <form className="home-width">
-          <input className="home-input home-width" type="text" placeholder="What's happening?"/>
+        <form onSubmit={(e) => createTweet(e)} className="home-width">
+          <input className="home-input home-width" name="description" type="text" placeholder="What's happening?"/>
       
 
       <section className="home-bottom">

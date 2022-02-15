@@ -1,15 +1,14 @@
 package com.example.twitterclone.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @NoArgsConstructor
+@ToString
 public class TweetEntity {
 
     @Id
@@ -23,10 +22,13 @@ public class TweetEntity {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserEntity userEntity;
 
+    private LocalDateTime sentAt;
+
     public TweetEntity(String description, UserEntity userEntity) {
         this.description = description;
         this.userEntity = userEntity;
         this.retweets = 0;
         this.favourites = 0;
+        this.sentAt = LocalDateTime.now();
     }
 }

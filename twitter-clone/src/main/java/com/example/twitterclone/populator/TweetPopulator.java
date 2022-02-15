@@ -16,6 +16,7 @@ public class TweetPopulator {
         tweetDTO.setDescription(tweetEntity.getDescription());
         tweetDTO.setRetweets(tweetEntity.getRetweets());
         tweetDTO.setFavourites(tweetEntity.getFavourites());
+        tweetDTO.setSentAt(tweetEntity.getSentAt());
 
         return tweetDTO;
     }
@@ -23,7 +24,14 @@ public class TweetPopulator {
     public List<TweetDTO> createTweetListDTO(UserEntity userEntity){
         return userEntity.getTweets()
                 .stream()
-                .map(e -> new TweetDTO(e.getDescription(), e.getRetweets(), e.getFavourites()))
+                .map(e -> new TweetDTO(e.getDescription(), e.getRetweets(), e.getFavourites(), e.getSentAt()))
                 .collect(Collectors.toList());
+    }
+
+    public List<TweetDTO> createFollowerTweetListDTO(List<TweetEntity> tweetEntities){
+        return tweetEntities.stream()
+        .map(e -> new TweetDTO(e.getDescription(), e.getRetweets(), e.getFavourites(), e.getUserEntity().getUsername(), e.getSentAt()))
+        .collect(Collectors.toList());
+
     }
 }

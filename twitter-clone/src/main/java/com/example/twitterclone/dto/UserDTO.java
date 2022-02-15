@@ -16,11 +16,11 @@ public class UserDTO {
 
     private String username;
 
-    //Should this noT be followingDTO though, bit confused
     private List<UserDTO> following;
 
     private List<UserDTO> follower;
 
+    //we might need to remove this
     private List<TweetDTO> tweets;
 
     public UserDTO(String username) {

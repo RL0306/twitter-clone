@@ -17,6 +17,7 @@ const Home = () => {
   const username = state.username;
 
   useEffect(() => {
+    console.log("first")
     const fetchData = async () => {
       console.log("fetching")
       const res =  await axios.get(`http://localhost:8080/api/user/username/${username}`, {withCredentials : true});
