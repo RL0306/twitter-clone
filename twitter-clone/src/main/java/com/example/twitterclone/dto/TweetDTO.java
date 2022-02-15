@@ -26,12 +26,5 @@ public class TweetDTO {
         this.favourites = favourites;
         this.sentAt = sentAt;
     }
-
-
 }
 
-/**
-
- * Don't need because the userEntity will return all the tweets, so no need?
- * private UserEntity userEntity;
- */

@@ -11,7 +11,12 @@ export interface IAuthUser {
 export interface ITweet {
   description : string,
   retweets : number,
-  favourites : number
+  favourites : number,
+  username : string
+}
+
+export interface ITweetContainer {
+  tweets : ITweet[]
 }
 
 export interface IFollower {

@@ -4,24 +4,21 @@ import TwitterRetweet from "./iconComponent/TwitterRetweet";
 import TwitterFavourite from "./iconComponent/TwitterFavourite";
 import TwitterShare from "./iconComponent/TwitterShare";
 import { UserContext } from "./context/UserContext";
-import { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import { ITweet, ITweetContainer } from "../interface/IAuthUser";
 
-const Tweet = () => {
+const Tweet : React.FC<ITweetContainer>= ({tweets} : ITweetContainer) => {
 
   const userContext = useContext(UserContext);
 
-  const tweets = userContext?.user?.tweets;
-
-
-
+  console.log(tweets)
 
   return (
 
-    
     <div className="tweet-container">
       {tweets && tweets.map((tweet) => 
       <div key={tweet.description} className="tweet-flex tweet-card tweet-column tweet-padding tweet-margin">
-        <p>{userContext.user?.username}</p>
+        <p>{tweet.username}</p>
         <p>{tweet.description}</p>
 
         <div className="tweet-flex tweet-logos tweet-position tweet-margin">

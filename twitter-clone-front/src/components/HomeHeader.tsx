@@ -1,6 +1,6 @@
 import axios from "axios"
 import React, { ReactComponentElement, ReactFragment } from "react"
-import { ITweet } from "../interface/ITweet"
+import {ITweetRequest } from "../interface/ITweet"
 import "./HomeHeader.css"
 import Tweet from "./Tweet"
 const HomeHeader = ({tweets} : {tweets:ReactFragment}) => {
@@ -8,7 +8,7 @@ const HomeHeader = ({tweets} : {tweets:ReactFragment}) => {
   const createTweet = async (e : React.BaseSyntheticEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const description : ITweet = {description : formData.get("description") as string}
+    const description : ITweetRequest = {description : formData.get("description") as string}
 
     console.log(description)
 
@@ -54,10 +54,7 @@ const HomeHeader = ({tweets} : {tweets:ReactFragment}) => {
       </div>
     </div>
     
-        
-        
-
-      {tweets}
+    {tweets}
 
         
   </section>
