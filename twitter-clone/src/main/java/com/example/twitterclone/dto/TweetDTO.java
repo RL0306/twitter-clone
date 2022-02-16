@@ -14,13 +14,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TweetDTO {
+    private Long id;
     private String description;
     private int retweets;
     private int favourites;
     private String username;
     private LocalDateTime sentAt;
 
-    public TweetDTO(String description, int retweets, int favourites, LocalDateTime sentAt) {
+    public TweetDTO(Long id,String description, int retweets, int favourites, LocalDateTime sentAt) {
+        this.id = id;
         this.description = description;
         this.retweets = retweets;
         this.favourites = favourites;

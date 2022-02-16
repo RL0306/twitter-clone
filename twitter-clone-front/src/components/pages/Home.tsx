@@ -7,7 +7,7 @@ import { useEffect, useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import HomeHeader from "../HomeHeader";
 import Tweet from "../Tweet";
-import { ITweet, ITweetContainer } from "../../interface/IAuthUser";
+import { ITweetContainer } from "../../interface/IAuthUser";
 
 
 const Home = () => {
@@ -38,16 +38,22 @@ const Home = () => {
   },[])
 
 
-
-
-//get user from jsession id
-
   return (
+    // row
     <div className="home-main-container">
       <Sidebar/>
       
       {/* Really didn't want to pass it but have it individually here was messing up styles */}
-      <HomeHeader tweets={<Tweet tweets={tweets}/>}/>
+
+      {/* column */}
+      <div className="home-container">
+        <HomeHeader/>
+
+        <Tweet tweets={tweets}/>
+
+      </div>
+
+  
 
     </div>
   )

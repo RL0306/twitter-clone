@@ -24,7 +24,7 @@ const Tweet : React.FC<ITweetContainer>= ({tweets} : ITweetContainer) => {
         <div className="tweet-flex tweet-logos tweet-position tweet-margin">
           <TwitterChat/>
           <div className="tweet-flex tweet-center tweet-gap">
-            <TwitterRetweet/>
+            <TwitterRetweet id={tweet.id}/>
             <span>{tweet.retweets}</span>
           </div>
           <div className="tweet-flex tweet-center tweet-gap">

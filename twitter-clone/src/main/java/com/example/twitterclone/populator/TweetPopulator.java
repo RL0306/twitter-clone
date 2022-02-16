@@ -24,13 +24,13 @@ public class TweetPopulator {
     public List<TweetDTO> createTweetListDTO(UserEntity userEntity){
         return userEntity.getTweets()
                 .stream()
-                .map(e -> new TweetDTO(e.getDescription(), e.getRetweets(), e.getFavourites(), e.getSentAt()))
+                .map(e -> new TweetDTO(e.getId(), e.getDescription(), e.getRetweets(), e.getFavourites(), e.getSentAt()))
                 .collect(Collectors.toList());
     }
 
     public List<TweetDTO> createFollowerTweetListDTO(List<TweetEntity> tweetEntities){
         return tweetEntities.stream()
-        .map(e -> new TweetDTO(e.getDescription(), e.getRetweets(), e.getFavourites(), e.getUserEntity().getUsername(), e.getSentAt()))
+        .map(e -> new TweetDTO(e.getId(),e.getDescription(), e.getRetweets(), e.getFavourites(), e.getUserEntity().getUsername(), e.getSentAt()))
         .collect(Collectors.toList());
 
     }

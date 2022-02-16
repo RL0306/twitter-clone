@@ -4,11 +4,14 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Entity
 @Data
 @NoArgsConstructor
-@ToString
 public class TweetEntity {
 
     @Id
@@ -24,11 +27,16 @@ public class TweetEntity {
 
     private LocalDateTime sentAt;
 
+    @ElementCollection
+    private Map<Long, TweetAttributes> tweetAttributes;
+
+
     public TweetEntity(String description, UserEntity userEntity) {
         this.description = description;
         this.userEntity = userEntity;
         this.retweets = 0;
         this.favourites = 0;
         this.sentAt = LocalDateTime.now();
+        this.tweetAttributes = new HashMap<>();
     }
 }

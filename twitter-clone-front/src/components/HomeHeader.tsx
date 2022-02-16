@@ -3,7 +3,7 @@ import React, { ReactComponentElement, ReactFragment } from "react"
 import {ITweetRequest } from "../interface/ITweet"
 import "./HomeHeader.css"
 import Tweet from "./Tweet"
-const HomeHeader = ({tweets} : {tweets:ReactFragment}) => {
+const HomeHeader = () => {
 
   const createTweet = async (e : React.BaseSyntheticEvent) => {
     e.preventDefault();
@@ -54,7 +54,6 @@ const HomeHeader = ({tweets} : {tweets:ReactFragment}) => {
       </div>
     </div>
     
-    {tweets}
 
         
   </section>

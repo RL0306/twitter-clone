@@ -9,6 +9,7 @@ export interface IAuthUser {
 }
 
 export interface ITweet {
+  id : number,
   description : string,
   retweets : number,
   favourites : number,

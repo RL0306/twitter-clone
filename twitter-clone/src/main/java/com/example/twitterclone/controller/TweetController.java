@@ -2,6 +2,7 @@ package com.example.twitterclone.controller;
 
 import com.example.twitterclone.dto.TweetDTO;
 import com.example.twitterclone.dto.TweetRequestDTO;
+import com.example.twitterclone.entity.TweetAttributes;
 import com.example.twitterclone.service.FollowerService;
 import com.example.twitterclone.service.TweetService;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 public class TweetController {
     private final TweetService tweetService;
-    private final FollowerService followerService;
 
     @PostMapping
     public ResponseEntity<TweetDTO> createTweet(@RequestBody TweetRequestDTO tweetRequestDTO){
@@ -33,5 +33,20 @@ public class TweetController {
         return ResponseEntity.ok(allTweets);
 
     }
+
+    @PatchMapping("/retweet/{id}")
+    public ResponseEntity<TweetDTO> createRetweet(@PathVariable("id") Long id){
+        TweetDTO tweetDTO = tweetService.handleTweetRetweet(id);
+        return ResponseEntity.ok(tweetDTO);
+    }
+
+    //does this need to go over in favourite controller, related to tweets tho
+    @PatchMapping("/favourite/{id}")
+    public ResponseEntity<TweetDTO> createFavourite(@PathVariable("id") Long id){
+        TweetDTO tweetDTO = tweetService.handleTweetFavourite(id);
+        return ResponseEntity.ok(tweetDTO);
+    }
+
+
 }
 
