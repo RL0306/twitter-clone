@@ -4,5 +4,5 @@ import lombok.Data;
 
 
 public enum TweetAttributes {
-    NONE, FOLLOWING, RETWEET, FOLLOWING_RETWEET
+    NONE, FAVOURITE, RETWEET, FAVOURITE_RETWEET
 }

@@ -4,7 +4,7 @@ import axios from "axios";
 const TwitterRetweet = ({id} : {id : number}) => {
   
   const createRetweet = async () => {
-    const res = await axios.patch(`http://localhost:8080/api/tweet/retweet/${id}`, '',{
+    const res = await axios.patch(`http://localhost:8080/api/tweet/retweet/${id}`,'',{
       withCredentials:true
     });
     const data = await res.data;

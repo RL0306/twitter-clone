@@ -9,9 +9,6 @@ import { ITweet, ITweetContainer } from "../interface/IAuthUser";
 
 const Tweet : React.FC<ITweetContainer>= ({tweets} : ITweetContainer) => {
 
-  const userContext = useContext(UserContext);
-
-  console.log(tweets)
 
   return (
 
@@ -28,7 +25,7 @@ const Tweet : React.FC<ITweetContainer>= ({tweets} : ITweetContainer) => {
             <span>{tweet.retweets}</span>
           </div>
           <div className="tweet-flex tweet-center tweet-gap">
-            <TwitterFavourite/>
+            <TwitterFavourite id={tweet.id} />
             <span>{tweet.favourites}</span>
           </div>
           <TwitterShare/>

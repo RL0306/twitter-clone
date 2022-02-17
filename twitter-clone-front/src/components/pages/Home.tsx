@@ -39,22 +39,12 @@ const Home = () => {
 
 
   return (
-    // row
     <div className="home-main-container">
       <Sidebar/>
-      
-      {/* Really didn't want to pass it but have it individually here was messing up styles */}
-
-      {/* column */}
       <div className="home-container">
         <HomeHeader/>
-
         <Tweet tweets={tweets}/>
-
       </div>
-
-  
-
     </div>
   )
 }

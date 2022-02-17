@@ -64,17 +64,17 @@ public class TweetService {
 
         if(tweetAttributes == null || tweetAttributes == NONE){
             tweetEntity.getTweetAttributes().put(currentUser.getId(), attr);
-        } else if(tweetAttributes.equals(attr) || tweetAttributes.equals(FOLLOWING_RETWEET)){
+        } else if(tweetAttributes.equals(attr) || tweetAttributes.equals(FAVOURITE_RETWEET)){
 
             if(tweetAttributes.equals(attr))tweetEntity.getTweetAttributes().replace(currentUser.getId(), NONE);
-            if(tweetAttributes.equals(FOLLOWING_RETWEET))tweetEntity.getTweetAttributes().replace(currentUser.getId(), attr2);
+            if(tweetAttributes.equals(FAVOURITE_RETWEET))tweetEntity.getTweetAttributes().replace(currentUser.getId(), attr2);
 
             entityModifier.accept(tweetEntity, -1);
             tweetRepository.save(tweetEntity);
 
             return tweetPopulator.createTweetToDTO(tweetEntity);
         } else if(tweetAttributes.equals(attr2)){
-            tweetEntity.getTweetAttributes().put(currentUser.getId(), FOLLOWING_RETWEET);
+            tweetEntity.getTweetAttributes().put(currentUser.getId(), FAVOURITE_RETWEET);
         }
 
         entityModifier.accept(tweetEntity, +1);
@@ -86,11 +86,11 @@ public class TweetService {
 
 
     public TweetDTO handleTweetFavourite(final Long id) {
-        return handler(id, FOLLOWING, RETWEET, (entity, diff) -> entity.setFavourites(entity.getFavourites() + diff));
+        return handler(id, FAVOURITE, RETWEET, (entity, diff) -> entity.setFavourites(entity.getFavourites() + diff));
     }
 
     public TweetDTO handleTweetRetweet(final Long id) {
-        return handler(id, RETWEET, FOLLOWING,(entity, diff) -> entity.setRetweets(entity.getRetweets() + diff));
+        return handler(id, RETWEET, FAVOURITE,(entity, diff) -> entity.setRetweets(entity.getRetweets() + diff));
     }
 
 
