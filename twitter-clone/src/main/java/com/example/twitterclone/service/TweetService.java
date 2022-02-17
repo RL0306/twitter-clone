@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.example.twitterclone.entity.TweetAttributes.*;
@@ -53,60 +55,48 @@ public class TweetService {
         return followerTweetListDTO;
     }
 
-    public TweetDTO handleTweetRetweet(Long id){
+    public TweetDTO handler(final Long id, final TweetAttributes attr, final TweetAttributes attr2, final BiConsumer<TweetEntity, Integer> entityModifier) {
+        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        final UserEntity currentUser = userRepository.findByUsername(username).orElseThrow(IllegalAccessError::new);
 
-        //put these 2 in a global method or some shit???
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        UserEntity currentUser = userRepository.findByUsername(username).orElseThrow(IllegalAccessError::new);
-
-
-
-        TweetEntity tweetEntity = tweetRepository.findById(id).orElseThrow(IllegalAccessError::new);
-        TweetAttributes tweetAttributes = tweetEntity.getTweetAttributes().get(currentUser.getId());
+        final TweetEntity tweetEntity = tweetRepository.findById(id).orElseThrow(IllegalAccessError::new);
+        final TweetAttributes tweetAttributes = tweetEntity.getTweetAttributes().get(currentUser.getId());
 
         if(tweetAttributes == null || tweetAttributes == NONE){
-            tweetEntity.getTweetAttributes().put(currentUser.getId(), RETWEET);
-        } else if(tweetAttributes.equals(RETWEET) || tweetAttributes.equals(FOLLOWING_RETWEET)){
-            if(tweetAttributes.equals(RETWEET))tweetEntity.getTweetAttributes().replace(currentUser.getId(), NONE);
-            if(tweetAttributes.equals(FOLLOWING_RETWEET))tweetEntity.getTweetAttributes().replace(currentUser.getId(), FOLLOWING);
-            tweetEntity.setRetweets(tweetEntity.getRetweets() - 1);
+            tweetEntity.getTweetAttributes().put(currentUser.getId(), attr);
+        } else if(tweetAttributes.equals(attr) || tweetAttributes.equals(FOLLOWING_RETWEET)){
+
+            if(tweetAttributes.equals(attr))tweetEntity.getTweetAttributes().replace(currentUser.getId(), NONE);
+            if(tweetAttributes.equals(FOLLOWING_RETWEET))tweetEntity.getTweetAttributes().replace(currentUser.getId(), attr2);
+
+            entityModifier.accept(tweetEntity, -1);
             tweetRepository.save(tweetEntity);
+
             return tweetPopulator.createTweetToDTO(tweetEntity);
-        } else if(tweetAttributes.equals(FOLLOWING)){
+        } else if(tweetAttributes.equals(attr2)){
             tweetEntity.getTweetAttributes().put(currentUser.getId(), FOLLOWING_RETWEET);
         }
 
-        tweetEntity.setRetweets(tweetEntity.getRetweets() + 1);
+        entityModifier.accept(tweetEntity, +1);
         tweetRepository.save(tweetEntity);
+
         return tweetPopulator.createTweetToDTO(tweetEntity);
 
     }
 
-    public TweetDTO handleTweetFavourite(Long id){
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        UserEntity currentUser = userRepository.findByUsername(username).orElseThrow(IllegalAccessError::new);
-        TweetEntity tweetEntity = tweetRepository.findById(id).orElseThrow(IllegalAccessError::new);
-        TweetAttributes tweetAttributes = tweetEntity.getTweetAttributes().get(currentUser.getId());
 
-
-        //doesn't have any
-        if(tweetAttributes == null | tweetAttributes == NONE){
-            tweetEntity.getTweetAttributes().put(currentUser.getId(), FOLLOWING);
-        } else if(tweetAttributes.equals(FOLLOWING) || tweetAttributes.equals(FOLLOWING_RETWEET)){
-            if(tweetAttributes.equals(FOLLOWING))tweetEntity.getTweetAttributes().replace(currentUser.getId(), NONE);
-            if(tweetAttributes.equals(FOLLOWING_RETWEET))tweetEntity.getTweetAttributes().replace(currentUser.getId(), RETWEET);
-            tweetEntity.setFavourites(tweetEntity.getFavourites() - 1);
-            tweetRepository.save(tweetEntity);
-            return tweetPopulator.createTweetToDTO(tweetEntity);
-        } else if(tweetAttributes.equals(RETWEET)){
-            tweetEntity.getTweetAttributes().put(currentUser.getId(), FOLLOWING_RETWEET);
-        }
-
-        tweetEntity.setFavourites(tweetEntity.getFavourites() + 1);
-        tweetRepository.save(tweetEntity);
-        return tweetPopulator.createTweetToDTO(tweetEntity);
-
+    public TweetDTO handleTweetFavourite(final Long id) {
+        return handler(id, FOLLOWING, RETWEET, (entity, diff) -> entity.setFavourites(entity.getFavourites() + diff));
     }
+
+    public TweetDTO handleTweetRetweet(final Long id) {
+        return handler(id, RETWEET, FOLLOWING,(entity, diff) -> entity.setRetweets(entity.getRetweets() + diff));
+    }
+
+
+
+
+
 
 
 
