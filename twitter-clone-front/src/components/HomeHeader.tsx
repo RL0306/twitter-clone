@@ -10,19 +10,15 @@ const HomeHeader = () => {
     const formData = new FormData(e.target);
     const description : ITweetRequest = {description : formData.get("description") as string}
 
-    console.log(description)
-
     const res = await axios.post("http://localhost:8080/api/tweet", JSON.stringify(description), {
       withCredentials : true,
       headers : {
         "content-type" : "application/json",
       }
       
-    });
+    });    
 
-    const data = await res.data;
-
-    console.log(data)
+    e.target.reset();
 
   }
 
