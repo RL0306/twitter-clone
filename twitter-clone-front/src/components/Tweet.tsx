@@ -3,12 +3,10 @@ import TwitterChat from "./iconComponent/TwitterChat";
 import TwitterRetweet from "./iconComponent/TwitterRetweet";
 import TwitterFavourite from "./iconComponent/TwitterFavourite";
 import TwitterShare from "./iconComponent/TwitterShare";
-import { UserContext } from "./context/UserContext";
 import React from "react";
 import { ITweetContainer } from "../interface/IAuthUser";
 
 const Tweet : React.FC<ITweetContainer>= ({tweets, fetchTweets} : ITweetContainer ) => {
-
 
   return (
 

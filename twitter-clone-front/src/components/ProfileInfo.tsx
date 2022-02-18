@@ -6,7 +6,6 @@ const ProfileInfo = () => {
 
   const userContext = useContext(UserContext);
 
-  console.log(userContext?.user);
 
   return (
     <div className="profile-info-container">

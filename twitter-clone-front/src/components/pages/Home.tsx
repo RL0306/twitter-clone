@@ -12,10 +12,7 @@ import { UserContext } from "../context/UserContext";
 const Home = () => {
   
   const [tweets, setTweets] = useState<ITweetContainer["tweets"]>([]);
-
-  const userContext = useContext(UserContext);
-
-  
+ 
   const fetchTweets = async() => {
     const res = await axios.get("http://localhost:8080/api/tweet/all", {withCredentials : true});
     const data = await res.data;
