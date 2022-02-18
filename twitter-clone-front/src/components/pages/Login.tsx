@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import { ILogin } from "../../interface/ILogin";
+import { UserContext } from "../context/UserContext";
+
 
 import "../helper/Form.css"
 
@@ -9,6 +11,7 @@ import "../helper/Form.css"
 const Login = () => {
   const navigate = useNavigate();
   const [response, setResponse] = useState(undefined);
+  const userContext = useContext(UserContext);
 
 
   
@@ -29,15 +32,16 @@ const Login = () => {
 
     const {authentication} = await response.data;
     setResponse(authentication);
-    console.log({authentication})
-  
+
+
+    //set auth here maybe
+    const res =  await axios.get(`http://localhost:8080/api/user/username/${loginRequest.username}`, {withCredentials : true});
+    userContext?.setUser(await res.data);
     
-
-
     //redirect user to home page
     setTimeout(() => {
-      navigate("/", {state : {username : formData.get("username")}})
-    }, 5000)
+      navigate("/")
+    }, 1000)
 
   } catch(error){
     const {authentication} = await error.response.data;

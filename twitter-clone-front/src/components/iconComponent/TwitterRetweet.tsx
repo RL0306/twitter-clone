@@ -1,15 +1,14 @@
 import axios from "axios";
+import { ITweet } from "../../interface/IAuthUser";
 
-
-const TwitterRetweet = ({id} : {id : number}) => {
+const TwitterRetweet = ({id, fetchTweets}: {id : number, fetchTweets : () => Promise<void> | undefined} ) => {
   
   const createRetweet = async () => {
     const res = await axios.patch(`http://localhost:8080/api/tweet/retweet/${id}`,'',{
       withCredentials:true
     });
-    const data = await res.data;
 
-    console.log(data)
+    fetchTweets();
   }
   
   return (

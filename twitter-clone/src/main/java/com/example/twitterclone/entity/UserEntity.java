@@ -66,4 +66,5 @@ public class UserEntity {
     public int hashCode() {
         return 0;
     }
+
 }

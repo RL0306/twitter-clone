@@ -4,10 +4,10 @@ import TwitterRetweet from "./iconComponent/TwitterRetweet";
 import TwitterFavourite from "./iconComponent/TwitterFavourite";
 import TwitterShare from "./iconComponent/TwitterShare";
 import { UserContext } from "./context/UserContext";
-import React, { useContext, useEffect } from "react";
-import { ITweet, ITweetContainer } from "../interface/IAuthUser";
+import React from "react";
+import { ITweetContainer } from "../interface/IAuthUser";
 
-const Tweet : React.FC<ITweetContainer>= ({tweets} : ITweetContainer) => {
+const Tweet : React.FC<ITweetContainer>= ({tweets, fetchTweets} : ITweetContainer ) => {
 
 
   return (
@@ -21,11 +21,11 @@ const Tweet : React.FC<ITweetContainer>= ({tweets} : ITweetContainer) => {
         <div className="tweet-flex tweet-logos tweet-position tweet-margin">
           <TwitterChat/>
           <div className="tweet-flex tweet-center tweet-gap">
-            <TwitterRetweet id={tweet.id}/>
+            <TwitterRetweet id={tweet.id} fetchTweets ={fetchTweets}/>
             <span>{tweet.retweets}</span>
           </div>
           <div className="tweet-flex tweet-center tweet-gap">
-            <TwitterFavourite id={tweet.id} />
+            <TwitterFavourite id={tweet.id} fetchTweets={fetchTweets} />
             <span>{tweet.favourites}</span>
           </div>
           <TwitterShare/>

@@ -2,39 +2,28 @@ import Sidebar from "../Sidebar";
 import "../HomeHeader.css"
 import "../Home.css"
 import axios from "axios";
-import {useLocation} from 'react-router-dom';
-import { useEffect, useContext, useState } from "react";
-import { UserContext } from "../context/UserContext";
+import { useContext, useEffect, useState } from "react";
 import HomeHeader from "../HomeHeader";
 import Tweet from "../Tweet";
 import { ITweetContainer } from "../../interface/IAuthUser";
+import { UserContext } from "../context/UserContext";
 
 
 const Home = () => {
   
+  const [tweets, setTweets] = useState<ITweetContainer["tweets"]>([]);
+
   const userContext = useContext(UserContext);
 
-  const {state} : any = useLocation();
-  const username = state.username;
-
-  const [tweets, setTweets] = useState<ITweetContainer["tweets"]>([]);
   
+  const fetchTweets = async() => {
+    const res = await axios.get("http://localhost:8080/api/tweet/all", {withCredentials : true});
+    const data = await res.data;
+    setTweets(data);
+  }
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const res =  await axios.get(`http://localhost:8080/api/user/username/${username}`, {withCredentials : true});
-      userContext?.setUser(await res.data);
-    }
-    fetchUser();
-
-    const fetchTweets = async() => {
-      const res = await axios.get("http://localhost:8080/api/tweet/all", {withCredentials : true});
-      const data = await res.data;
-      setTweets(data);
-    }
-
     fetchTweets();
-
   },[])
 
 
@@ -43,7 +32,7 @@ const Home = () => {
       <Sidebar/>
       <div className="home-container">
         <HomeHeader/>
-        <Tweet tweets={tweets}/>
+        <Tweet tweets={tweets} fetchTweets={fetchTweets}/>
       </div>
     </div>
   )

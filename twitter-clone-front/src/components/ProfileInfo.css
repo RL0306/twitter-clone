@@ -1,0 +1,41 @@
+.profile-info-container {
+    display: flex;
+    width: 70%;
+    height: 20%;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.profile-flex-item {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.8rem;
+    align-items: center;
+    width: 100%;
+    gap: 1.1rem;
+}
+
+.profile-flex-item>* {
+    padding: 0.2rem;
+}
+
+.profile-description {
+    text-align: center;
+}
+
+.profile-stats-info {
+    display: flex;
+    border-bottom: solid 1px lightgray;
+    width: 100%;
+}
+
+.profile-info {
+    padding: 1rem;
+    font-size: 0.8rem;
+    border-left: solid 1px lightgray;
+}
+
+.profile-info span {
+    font-weight: bold;
+}

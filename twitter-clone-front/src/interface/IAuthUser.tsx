@@ -17,7 +17,8 @@ export interface ITweet {
 }
 
 export interface ITweetContainer {
-  tweets : ITweet[]
+  tweets : ITweet[] | undefined
+  fetchTweets ?: () => Promise<void> | undefined
 }
 
 export interface IFollower {
@@ -32,6 +33,10 @@ export type IUserContextType = {
   user : IAuthUser | null,
   setUser : React.Dispatch<React.SetStateAction<IAuthUser | null>>
 }
+
+
+
+
 
 
 

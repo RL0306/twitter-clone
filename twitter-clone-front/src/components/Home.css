@@ -4,3 +4,7 @@
     width: 50%;
     height: 1%;
 }
+
+.home-main-container {
+    display: flex;
+}
