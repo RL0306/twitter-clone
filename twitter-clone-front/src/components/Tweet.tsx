@@ -12,7 +12,7 @@ const Tweet : React.FC<ITweetContainer>= ({tweets, fetchTweets} : ITweetContaine
 
     <div className="tweet-container">
       {tweets && tweets.map((tweet) => 
-      <div key={tweet.description} className="tweet-flex tweet-card tweet-column tweet-padding tweet-margin">
+      <div key={tweet.id} className="tweet-flex tweet-card tweet-column tweet-padding tweet-margin">
         <p>{tweet.username}</p>
         <p>{tweet.description}</p>
 

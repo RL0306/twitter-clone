@@ -18,7 +18,7 @@ export interface ITweet {
 
 export interface ITweetContainer {
   tweets : ITweet[] | undefined
-  fetchTweets ?: () => Promise<void>
+  fetchTweets ?: () => Promise<void>;
 }
 
 export interface IFollower {

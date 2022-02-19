@@ -23,9 +23,6 @@ const Profile = () => {
     fetchTweets();
   },[])
 
-
-
-
   return (
     <div className="profile-main-container">
       <Sidebar/>

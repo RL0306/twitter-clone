@@ -1,11 +1,9 @@
 import axios from "axios";
-import React from "react";
-import { ITweet } from "../../interface/IAuthUser";
 
 const TwitterFavourite = ({id,fetchTweets} : {id : number, fetchTweets ?: () => Promise<void>}) => {
 
   const createFavourite = async () => {
-    const res = await axios.patch(`http://localhost:8080/api/tweet/favourite/${id}`, '', {withCredentials : true});
+    await axios.patch(`http://localhost:8080/api/tweet/favourite/${id}`, '', {withCredentials : true});
     fetchTweets && fetchTweets();
   }
 
