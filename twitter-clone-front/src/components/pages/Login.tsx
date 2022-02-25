@@ -13,6 +13,7 @@ const Login = () => {
   const [response, setResponse] = useState(undefined);
   const userContext = useContext(UserContext);
 
+  localStorage.setItem("AUTH_USER", "{}");
 
   
 
@@ -37,6 +38,7 @@ const Login = () => {
     //set auth here maybe
     const res =  await axios.get(`http://localhost:8080/api/user/username/${loginRequest.username}`, {withCredentials : true});
     userContext?.setUser(await res.data);
+    localStorage.setItem("AUTH_USER", JSON.stringify(res.data));
     
     //redirect user to home page
     setTimeout(() => {

@@ -21,13 +21,6 @@ import java.util.stream.Collectors;
 public class TweetController {
     private final TweetService tweetService;
 
-    public static void main(String[] args) {
-        List<String> list = Arrays.asList("Hello", "World", "Yellow");
-
-        String collect = list.stream().collect(Collectors.joining(","));
-        System.out.println(collect);
-    }
-
     @PostMapping
     public ResponseEntity<TweetDTO> createTweet(@RequestBody TweetRequestDTO tweetRequestDTO){
         TweetDTO tweet = tweetService.createTweet(tweetRequestDTO);

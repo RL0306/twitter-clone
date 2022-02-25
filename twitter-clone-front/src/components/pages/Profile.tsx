@@ -14,6 +14,7 @@ const Profile = () => {
 
   const fetchTweets = async () => {
     //need to handle seperate query that orders it by time
+    
     const res = await axios.get(`http://localhost:8080/api/user/${userContext?.user?.id}`, {withCredentials : true});
     const data = await res.data;
     setTweets(data.tweets);
